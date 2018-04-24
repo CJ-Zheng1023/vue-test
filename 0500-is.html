@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <button @click="change">change</button>
+    <!-- keep alive 避免非激活的组件重新渲染，会把非激活组件存入内存 -->
+    <keep-alive>
+        <component :is="currentView">
+
+        </component>
+    </keep-alive>
+
+</div>
+
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        methods: {
+            change(){
+                this.currentView = this.currentView === 'home' ? 'about' : 'home'
+            }
+        },
+        el: '#app',
+        data(){
+            return{
+                currentView: 'home'
+            }
+        },
+        components: {
+            home: {
+                template: `<p>home</p>`
+            },
+            about: {
+                template: `<p>about</p>`
+            }
+        }
+    })
+</script>
+</body>
+</html>

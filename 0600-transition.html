@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .fade-enter-active, .fade-leave-active{
+            transition: opacity .5s;
+        }
+        .fade-enter, .fade-leave-to{
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="flag = !flag">click</button>
+    <transition name="fade">
+        <span v-show="flag">hello!</span>
+    </transition>
+</div>
+
+
+
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data(){
+            return {
+                flag: true
+            }
+        }
+    })
+</script>
+</body>
+</html>

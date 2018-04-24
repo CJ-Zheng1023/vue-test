@@ -1,0 +1,21 @@
+{
+  "name": "vue-test",
+  "authors": [
+    "AfterWin <CJ_Zheng1023@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vue": "^2.5.16",
+    "animate.css": "^3.5.2"
+  }
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="(product, index) in products" :key="product.id">
+            <product-item @input-text="setName" :item="product" :index="index"></product-item>
+        </li>
+    </ul>
+</div>
+
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    Vue.component('ProductItem', {
+        props: {
+            item: {
+                type: Object,
+                required: true
+            },
+            index: {
+                type: Number,
+                required: true
+            }
+        },
+        template: `<div><span>{{ item.name }}</span><input :value="item.name" @input="inputText" /></div>`,
+        methods: {
+            inputText(e){
+                this.$emit('input-text', e.target.value, this.index)
+            }
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data(){
+            return{
+                products: [
+                    {
+                        id: 1,
+                        name: 'one'
+                    },
+                    {
+                        id: 2,
+                        name: 'two'
+                    },
+                    {
+                        id: 3,
+                        name: 'three'
+                    }
+                ]
+            }
+        },
+        methods: {
+            setName(newValue, index){
+                this.products[index].name = newValue
+            }
+        }
+    })
+</script>
+</body>
+</html>

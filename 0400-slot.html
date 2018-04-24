@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <my-component :mes="message">
+        <div slot="header">header</div>
+        <div>
+            <h3>nice to meet you!</h3>
+            <h4>good luck!</h4>
+        </div>
+        <div slot="footer">footer</div>
+    </my-component>
+</div>
+
+
+<script type="text/x-template" id="my-component">
+    <div>
+        <header>
+            <slot name="header"></slot>
+        </header>
+        <main>
+            <span>{{ mes }}</span>
+            <slot></slot>
+        </main>
+        <footer>
+            <slot name="footer"></slot>
+        </footer>
+
+    </div>
+</script>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script>
+    Vue.component('MyComponent', {
+        props: {
+          mes: {
+              type: String,
+              required: true
+          }
+        },
+        template: '#my-component'
+    })
+    var app = new Vue({
+        el: '#app',
+        data(){
+            return{
+                message: 'hi~~~'
+            }
+        }
+    })
+</script>
+</body>
+</html>
