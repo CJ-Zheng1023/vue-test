@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <router-link to="/user/123/profile">123profile</router-link>
+    <router-link to="/user/123/about">123about</router-link>
+    <router-view></router-view>
+</div>
+
+
+<script src="bower_components/vue/dist/vue.js"></script>
+<script src="bower_components/vue-router/dist/vue-router.js"></script>
+<script>
+    var User = {
+        template: `
+        <div>
+            <div>user {{ $route.params.id }}</div>
+            <router-view></router-view>
+        </div>
+
+        `
+    }
+    var routes = [
+        {
+            path: '/user/:id',
+            component: User,
+            children: [
+                {
+                    path: 'profile',
+                    component: {
+                        template: '<div>profile</div>'
+                    }
+                },
+                {
+                    path: 'about',
+                    component: {
+                        template: '<div>about</div>'
+                    }
+                }
+            ]
+        }
+    ]
+    var router = new VueRouter({
+        routes
+    })
+    var app = new Vue({
+        router,
+        el: '#app'
+    })
+</script>
+</body>
+</html>

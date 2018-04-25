@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div>vue router</div>
+    <p>
+        <router-link to="/home">home</router-link>
+        <router-link to="/about">about</router-link>
+        <router-link to="/user/123">user</router-link>
+    </p>
+    <router-view></router-view>
+</div>
+
+
+
+<script src="bower_components/vue/dist/vue.js"></script>
+<script src="bower_components/vue-router/dist/vue-router.js"></script>
+<script>
+    var routes = [
+        {
+            path: '/home',
+            component: {
+                template: '<p>home</p>'
+            }
+        },
+        {
+            path: '/about',
+            component: {
+                template: '<p>about</p>'
+            }
+        },
+        {
+            path: '/user/:id',
+            component: {
+                template: '<p>user {{ $route.params.id }}</p>'
+            }
+        }
+    ]
+    var router  = new VueRouter({
+        routes
+    })
+    var app = new Vue({
+        el: '#app',
+        router,
+        methods: {
+            setDefaultRoute(){
+                this.$router.push('/home')
+            }
+        },
+        created(){
+            this.setDefaultRoute()
+        }
+    })
+</script>
+</body>
+</html>
