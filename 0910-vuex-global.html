@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div>{{ message }}</div>
+    <child></child>
+
+</div>
+
+<script src="bower_components/vue/dist/vue.js"></script>
+<script src="bower_components/vue-router/dist/vue-router.js"></script>
+<script src="bower_components/vuex/dist/vuex.js"></script>
+<script>
+
+    Vue.use(Vuex)
+    var mapState = Vuex.mapState
+    var store = new Vuex.Store({
+        state: {
+            count: 0,
+            message: 'hello'
+        },
+        mutations: {
+            increment: state => state.count ++,
+            decrement: state => state.count --
+        }
+    })
+
+    var app = new Vue({
+        el:'#app',
+        store,
+        computed: mapState({
+            message: state => state.message
+        }),
+        components: {
+            Child: {
+                template: `<div>
+                           <div>{{ count }}</div>
+                           <div>{{ formatCount }}</div>
+                           <button @click="increment">+</button>
+                           <button @click="decrement">-</button>
+                           </div>`,
+                computed: {
+                    formatCount(){
+                        return this.count + '个'
+                    },
+                    ...mapState([
+                        'count'
+                    ])
+                }
+                ,
+                methods: {
+                    increment(){
+                        store.commit('increment')
+                    },
+                    decrement(){
+                        store.commit('decrement')
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

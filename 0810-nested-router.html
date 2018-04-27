@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css">
 </head>
 <body>
 <div id="app">
@@ -18,16 +19,19 @@
     var User = {
         template: `
         <div>
-            <div>user {{ $route.params.id }}</div>
-            <router-view></router-view>
+            <div>user {{ id }}</div>
+            <transition mode="out-in" enter-active-class="animated bounce" leave-active-class="animated bounceOutRight">
+                <router-view></router-view>
+            </transition>
         </div>
-
-        `
+        `,
+        props: ['id']
     }
     var routes = [
         {
             path: '/user/:id',
             component: User,
+            props: true,
             children: [
                 {
                     path: 'profile',
@@ -38,14 +42,36 @@
                 {
                     path: 'about',
                     component: {
-                        template: '<div>about</div>'
+                        template: '<div>about</div>',
+                        /**
+                         * 组件内守卫，这个方法当离开当前路由时触发
+                         * @param to
+                         * @param from
+                         * @param next
+                         */
+                        beforeRouteLeave(to, from, next){
+                            const flag = confirm('do you wanna to leave?')
+                            if(flag){
+                                next()
+                            }else{
+                                next(false)
+                            }
+                        }
                     }
+
                 }
             ]
         }
     ]
     var router = new VueRouter({
         routes
+    })
+    /**
+     * 导航守卫
+     */
+    router.beforeEach((to, from, next) => {
+        console.log(to.path)
+        next()
     })
     var app = new Vue({
         router,
