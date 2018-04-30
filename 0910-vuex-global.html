@@ -19,6 +19,7 @@
     Vue.use(Vuex)
     var mapState = Vuex.mapState
     var mapGetters = Vuex.mapGetters
+    var mapMutations = Vuex.mapMutations
     var store = new Vuex.Store({
         state: {
             count: 0,
@@ -56,17 +57,15 @@
                     ...mapState([
                         'count'
                     ]),
-                    ...mapGetters({
+                    ...mapGetters([
                         'formatMessage'
-                    })
+                    ])
                 },
                 methods: {
-                    increment(){
-                        store.commit('increment')
-                    },
-                    decrement(){
-                        store.commit('decrement')
-                    }
+                    ...mapMutations([
+                        'increment',
+                        'decrement'
+                    ])
                 }
             }
         }
